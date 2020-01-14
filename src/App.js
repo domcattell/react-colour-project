@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Pallete extends Component {
+export class App extends Component {
     render() {
         return (
             <div>
@@ -10,4 +10,4 @@ export class Pallete extends Component {
     }
 }
 
-export default Pallete;
+export default App;
