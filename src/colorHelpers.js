@@ -30,7 +30,7 @@ const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 function generatePalette(starterPallete) {
     let newPallete = {
-        palleteName: starterPallete.paletteName,
+        paletteName: starterPallete.paletteName,
         id: starterPallete.id,
         emoji: starterPallete.emoji,
         colors: {
