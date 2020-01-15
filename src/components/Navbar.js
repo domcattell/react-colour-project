@@ -2,24 +2,35 @@ import React, { Component } from 'react';
 import Slider, {Range} from 'rc-slider';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
 import 'rc-slider/assets/index.css';
 import '../styles/Navbar.css'
-
 
 export class Navbar extends Component {
     constructor(props) {
         super(props);
-        this.state = {format: "hex"}
+        this.state = {format: "hex", open: false}
         this.changeFormat = this.changeFormat.bind(this);
+        this.closeSnackbar = this.closeSnackbar.bind(this);
     }
 
     changeFormat(e) {
-        this.setState({format: e.target.value});
+        this.setState({format: e.target.value, open: true}, () => {
+            setTimeout(() => {
+                this.setState({open: false})
+            }, 2000)
+        })
         this.props.changeFormat(e.target.value);
     }
 
+    closeSnackbar() {
+        this.setState({open: false})
+    }
+
     render() {
-        const {level, changeLevel, changeFormat} = this.props;
+        const {level, changeLevel} = this.props;
         const {format} = this.state;
         return (
             <header className="Navbar">
@@ -39,6 +50,15 @@ export class Navbar extends Component {
                         <MenuItem value="rgba">RGBA</MenuItem>
                     </Select>
                 </div>
+                <Snackbar 
+                    anchorOrigin={{vertical: "bottom", horizontal: "left"}} 
+                    open={this.state.open}
+                    autoHideDuration={3000}
+                    message={<span id="meg-id">Format changed to {format.toUpperCase()}</span>}
+                    ContentProps={{"aria-describedby": "msg-id"}}
+                    action={[<IconButton onClick={this.closeSnackbar} color="inherit" key="close" aria-label="close"><CloseIcon /></IconButton>]}
+                    onClose={this.closeSnackbar} >
+                </Snackbar>
             </header>
         );
     }
