@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
-import Pallete from './components/Pallete';
+import Palette from './components/Palette';
 import seedColors from './seedColors';
-import {generatePallete} from './colorHelpers';
+import {generatePalette} from './colorHelpers';
+import { Divider } from '@material-ui/core';
 
 export class App extends Component {
-    findPallete(id) {
-        seedColors.find((pallete) => {
-            return Pallete.id
-        })
+    findPalette(id) {
+            return seedColors.find(function(palette) {
+                return palette.id === id;
+            })
     }
+    
     render() {
         return (
-                <Switch>
-                    <Route exact path="/" render{() => }/>
-                    <Route exact path="/pallete/:id/" render{() => <Pallete />} />
-                </Switch>
             <div>
-                <Pallete pallete={generatePallete(seedColors[5])}/>
-            </div>
+                <Switch>
+                    <Route 
+                        exact 
+                        path="/palette/:id" 
+                        render={routeProps => (<Palette palette={generatePalette(this.findPalette(routeProps.match.params.id))}/>)}
+                    />
+                </Switch>
+         </div>
+           
         );
     }
 }

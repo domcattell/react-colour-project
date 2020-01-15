@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import ColorBox from './ColorBox'
 import '../styles/Pallete.css'
 
-export class Pallete extends Component {
+export class Palette extends Component {
     constructor(props) {
         super(props);
         this.state = {level: 500, format: "hex"};
@@ -20,7 +20,7 @@ export class Pallete extends Component {
     }
 
     render() {
-        const {colors, palleteName, emoji} = this.props.pallete;
+        const {colors, paletteName, emoji} = this.props.palette;
         const {level, format} = this.state;
         const colorBoxes = colors[level].map(color => (
             <ColorBox background={color[format]} name={color.name} key={color.id}/>
@@ -32,7 +32,7 @@ export class Pallete extends Component {
                     {colorBoxes}
                 </div>
                 <footer className="Pallete-footer">
-                    {palleteName}
+                    {paletteName}
                     <span className="emoji">{emoji}</span>
                 </footer>
             </div>
@@ -40,4 +40,4 @@ export class Pallete extends Component {
     }
 }
 
-export default Pallete;
+export default Palette;
