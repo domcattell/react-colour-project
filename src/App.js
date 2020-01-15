@@ -5,13 +5,18 @@ import seedColors from './seedColors';
 import {generatePallete} from './colorHelpers';
 
 export class App extends Component {
+    findPallete(id) {
+        seedColors.find((pallete) => {
+            return Pallete.id
+        })
+    }
     render() {
         return (
-            <div>
                 <Switch>
                     <Route exact path="/" render{() => }/>
-                    <Route exact path="/pallete/:id/" render{() => }/>
+                    <Route exact path="/pallete/:id/" render{() => <Pallete />} />
                 </Switch>
+            <div>
                 <Pallete pallete={generatePallete(seedColors[5])}/>
             </div>
         );
