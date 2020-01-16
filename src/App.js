@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Palette from './components/Palette';
 import PaletteList from './components/PaletteList'
+import SingleColourPalette from './components/SingleColourPalette'
 import seedColors from './seedColors';
 import {generatePalette} from './colorHelpers';
 import { Divider } from '@material-ui/core';
@@ -20,12 +21,17 @@ export class App extends Component {
                     <Route exact path="/" render={(routeProps) => <PaletteList palettes={seedColors} {...routeProps} />}/>
                     <Route 
                         exact 
+                        path="/palette/:paletteId/:colourId" 
+                        render={routeProps => 
+                            (<SingleColourPalette palette={generatePalette(this.findPalette(routeProps.match.params.paletteId))} colourId={routeProps.match.params.colourId}/>
+                        )}
+                    />
+                    <Route 
+                        exact 
                         path="/palette/:id" 
                         render={routeProps => 
                             (<Palette palette={generatePalette(this.findPalette(routeProps.match.params.id))}/>
-                        )}
-                    />
-                    <Route exact path="/palette/:paletteId/:colourId" render={() => <h1>sdfsdf</h1>}/>
+                        )}/>
                 </Switch>
          </div>
            
