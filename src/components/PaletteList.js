@@ -24,7 +24,8 @@ const styles = {
     nav: {
         display: "flex",
         width: "100%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        color: "white"
     },
 
     palettes: {
@@ -32,10 +33,16 @@ const styles = {
         width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(3, 30%)",
-        gridGrap: "5%"
+        gridGap: "5%"
     }
 }
+
 export class PaletteList extends Component {
+
+    gotToPalette(id) {
+        this.props.history.push(`/palette/${id}`)
+    }
+
     render() {
         const {palettes, classes} = this.props;
         const routePath = "/palette/"
@@ -47,7 +54,7 @@ export class PaletteList extends Component {
                     </nav>
                     <div className={classes.palettes}>
                         {palettes.map(palette => (
-                            <MiniPalette {...palette}/>
+                             <MiniPalette {...palette} handleClick={() => this.gotToPalette(palette.id)}/>
                         ))}
                     </div>
                 </div>
