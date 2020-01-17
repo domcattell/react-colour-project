@@ -9,11 +9,12 @@ const styles = {
         padding: "0.5rem",
         position: "relative",
         overflow: "hidden",
-        transition: "all 0.3s ease-in-out",
+        transition: "all 0.4s ease",
 
             "&:hover": {
                 cursor: "pointer",
-                transform: "scale(1.03)"
+                backgroundColor: "#2e4357",
+                color: "#edeef2"
             }
     },
 
@@ -38,7 +39,6 @@ const styles = {
         justifyContent: "space-between",
         alignItems: "center",
         margin: "0",
-        color: "black",
         paddingTop: "0.5rem",
         fontSize: "1rem",
         position: "relative"

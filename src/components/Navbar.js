@@ -31,21 +31,23 @@ export class Navbar extends Component {
     }
 
     render() {
-        const {level, changeLevel} = this.props;
+        const {level, changeLevel, showingAllColours} = this.props;
         const {format} = this.state;
         return (
             <header className="Navbar">
                 <div className="logo">
                     <Link to="/">React Colour Picker</Link>
                 </div>
+                {showingAllColours && (
                 <div className="slider-container">
                     <span className="slider-level">{level}</span>
                     <div className="slider">
                         <Slider defaultValue={level} min={100} max={900} onAfterChange={changeLevel} step={100}/>
                     </div>
                 </div>
+                )}
                 <div className="select-container">
-                    <Select value={format} onChange={this.changeFormat}>
+                    <Select className="select-items" value={format} onChange={this.changeFormat}>
                         <MenuItem value="hex">HEX</MenuItem>
                         <MenuItem value="rgb">RGB</MenuItem>
                         <MenuItem value="rgba">RGBA</MenuItem>
@@ -55,7 +57,7 @@ export class Navbar extends Component {
                     anchorOrigin={{vertical: "bottom", horizontal: "left"}} 
                     open={this.state.open}
                     autoHideDuration={3000}
-                    message={<span id="meg-id">Format changed to {format.toUpperCase()}</span>}
+                    message={<span id="msg-id">Format changed to {format.toUpperCase()}</span>}
                     ContentProps={{"aria-describedby": "msg-id"}}
                     action={[<IconButton onClick={this.closeSnackbar} color="inherit" key="close" aria-label="close"><CloseIcon /></IconButton>]}
                     onClose={this.closeSnackbar} >
