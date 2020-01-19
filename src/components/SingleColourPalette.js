@@ -3,10 +3,10 @@ import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import Footer from './Footer'
 import {Link} from 'react-router-dom'
-import "../styles/Pallete.css"
-import "../styles/ColorBox.css"
+import {withStyles} from '@material-ui/styles';
+import styles from '../styles/PaletteStyles'
 
-export class SingleColourPalette extends Component {
+class SingleColourPalette extends Component {
     constructor(props) {
         super(props);
         this._shades = this.gatherShades(this.props.palette, this.props.colourId)
@@ -32,16 +32,18 @@ export class SingleColourPalette extends Component {
     render() {
         const {format} = this.state;
         const {paletteName, emoji, id} = this.props.palette;
+        const {classes} = this.props;
+        
         const colorBoxes = this._shades.map(color => (
-            <ColorBox key={color.name} name={color.name} background={color[format]} showLink={false}/>
+            <ColorBox key={color.name} name={color.name} background={color[format]} showingFullPalette={false}/>
         ))
         return (
-            <div className="SingleColour Pallete">
+            <div className={classes.Palette}>
                 <Navbar changeFormat={this.changeFormat} showingAllColours={false}/>
-                <div className="Pallete-colors">
+                <div className={classes.paletteColors}>
                     {colorBoxes}
-                    <Link className="go-back ColorBox" to={`/palette/${id}`}>
-                        <span className="back-btn">Go Back</span>
+                    <Link className={classes.goBack} to={`/palette/${id}`}>
+                        <span className={classes.backBtn}>Go Back</span>
                     </Link>
                 </div>
                 <Footer paletteName={paletteName} emoji={emoji} />
@@ -50,4 +52,4 @@ export class SingleColourPalette extends Component {
     }
 }
 
-export default SingleColourPalette;
+export default withStyles(styles)(SingleColourPalette);
