@@ -6,6 +6,7 @@ import SingleColourPalette from './components/SingleColourPalette'
 import seedColors from './seedColors';
 import {generatePalette} from './colorHelpers';
 import { Divider } from '@material-ui/core';
+import NewPaletteForm from './components/NewPaletteForm';
 
 export class App extends Component {
     findPalette(id) {
@@ -18,6 +19,7 @@ export class App extends Component {
         return (
             <div>
                 <Switch>
+                    <Route exact path="/palette/new" render={() => <NewPaletteForm />}/>
                     <Route exact path="/" render={(routeProps) => <PaletteList palettes={seedColors} {...routeProps} />}/>
                     <Route 
                         exact 
