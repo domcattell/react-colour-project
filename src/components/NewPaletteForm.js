@@ -80,12 +80,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [currColour, setCurrColour] = React.useState("teal")
     const [colours, setColours] = React.useState([]);
     const [newName, setNewName] = React.useState("");
+    const [newPaletteName, setNewPaletteName] = React.useState("")
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -101,7 +102,7 @@ export default function NewPaletteForm() {
   
     const addNewColour = () => {
         const newColour = {
-            colour: currColour,
+            color: currColour,
             name: newName
         }
         setColours([...colours, newColour]);
@@ -110,7 +111,20 @@ export default function NewPaletteForm() {
     }
 
     const handleChange = (e) => {
-        setNewName(e.target.value)
+        let setNewPaletteName = [e.target.value]
+        [e.target.name](e.target.value)
+    }
+
+    const handleSubmit = () => {
+      let newName="new Test palette"
+      const newPalette = {
+        paletteName: newName,
+        id: newName.toLowerCase().replace(/ /g, "-"),
+        colors: colours
+
+      }
+        props.savePalette(newPalette)
+        props.history.push("/")
     }
 
     React.useEffect(() => {
@@ -131,6 +145,7 @@ export default function NewPaletteForm() {
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
+          color="default"
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
@@ -147,8 +162,14 @@ export default function NewPaletteForm() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Persistent drawer
+              Create Palette
             </Typography>
+            <ValidatorForm onSubmit={handleSubmit}>
+              <TextValidator label="Palette Name" onChange={handleChange} value={newPaletteName} name="newPaletteName"/>
+              <Button variant="contained" color="primary" type="submit">Save Palette</Button>
+            </ValidatorForm>
+            
+
           </Toolbar>
         </AppBar>
         <Drawer
@@ -176,6 +197,7 @@ export default function NewPaletteForm() {
           <ValidatorForm onSubmit={addNewColour}>
               <TextValidator 
                 value={newName}
+                name="newName"
                 onChange={handleChange}
                 validators={["required", "isColourNameUnique", "isColourUnique"]}
                 errorMessages={["this field is required", "Colour name already in use", "Colour already used"]}
@@ -192,7 +214,7 @@ export default function NewPaletteForm() {
         >
           <div className={classes.drawerHeader} />
             {colours.map(colour => (
-                <DraggableColourBox colour={colour.colour} name={colour.name}/>
+                <DraggableColourBox colour={colour.color} name={colour.name}/>
             ))}
         
         </main>
