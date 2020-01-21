@@ -20,6 +20,8 @@ import Button from '@material-ui/core/Button'
 import {SketchPicker} from 'react-color';
 import DraggableColourBox from './DraggableColourBox';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
+import DraggableColourList from './DraggableColourList'
+import { arrayMove } from 'react-sortable-hoc';
 
 const drawerWidth = 400;
 
@@ -82,61 +84,87 @@ const useStyles = makeStyles(theme => ({
 
 export default function NewPaletteForm(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    const [currColour, setCurrColour] = React.useState("teal")
-    const [colours, setColours] = React.useState([]);
-    const [newName, setNewName] = React.useState("");
-    const [newPaletteName, setNewPaletteName] = React.useState("")
+    // const [open, setOpen] = React.useState(true);
+    // const [currColour, setCurrColour] = React.useState("teal")
+    // const [colours, setColours] = React.useState([]);
+    // const [newName, setNewName] = React.useState("");
+    // const [newPaletteName, setNewPaletteName] = React.useState("")
+
+    const [state, setState] = React.useState({
+      open: true,
+      currColour: "blue",
+      colours: [],
+      newName: "",
+      newPaletteName: ""
+    })
   
     const handleDrawerOpen = () => {
-      setOpen(true);
+      setState({...state, open: true});
     };
 
     const updateCurrentColour = (newColor) => {
-        setCurrColour(newColor.hex)
+        setState({...state, currColour: newColor.hex})
     }
   
     const handleDrawerClose = () => {
-      setOpen(false);
+      setState({...state, open: false});
     };
   
     const addNewColour = () => {
         const newColour = {
-            color: currColour,
-            name: newName
+            color: state.currColour,
+            name: state.newName
         }
-        setColours([...colours, newColour]);
-        setNewName("");
-        setCurrColour("black")
+        setState({
+          ...state, 
+          colours: [...state.colours, newColour], 
+          newName: "", 
+        })
     }
 
     const handleChange = (e) => {
-        let setNewPaletteName = [e.target.value]
-        [e.target.name](e.target.value)
+        setState({...state, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = () => {
-      let newName="new Test palette"
+      let newName= state.newPaletteName
       const newPalette = {
         paletteName: newName,
         id: newName.toLowerCase().replace(/ /g, "-"),
-        colors: colours
+        colors: state.colours
 
       }
         props.savePalette(newPalette)
         props.history.push("/")
     }
 
+    const removeColour = (colourName) => {
+        setState({
+          ...state,
+          colours: state.colours.filter(colour => colour.name !== colourName) 
+        })
+    }
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+      setState({...state, colours: arrayMove(state.colours, oldIndex, newIndex)})
+    }
+
     React.useEffect(() => {
       ValidatorForm.addValidationRule("isColourNameUnique", value => {
-        return colours.every(
+        return state.colours.every(
           ({ name }) => name.toLowerCase() !== value.toLowerCase()
         );
       });
 
       ValidatorForm.addValidationRule("isColourUnique", value => {
-        return colours.every(
-          ({ colour }) => colour !== currColour
+        return state.colours.every(
+          ({ colour }) => colour !== state.currColour
+        );
+      });
+
+      ValidatorForm.addValidationRule("isPaletteNameUnique", value => {
+        return props.palettes.every(
+          ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
         );
       });
     });
@@ -148,7 +176,7 @@ export default function NewPaletteForm(props) {
           color="default"
           position="fixed"
           className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
+            [classes.appBarShift]: state.open,
           })}
         >
           <Toolbar>
@@ -157,7 +185,7 @@ export default function NewPaletteForm(props) {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
+              className={clsx(classes.menuButton, state.open && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
@@ -165,7 +193,14 @@ export default function NewPaletteForm(props) {
               Create Palette
             </Typography>
             <ValidatorForm onSubmit={handleSubmit}>
-              <TextValidator label="Palette Name" onChange={handleChange} value={newPaletteName} name="newPaletteName"/>
+              <TextValidator 
+                label="Palette Name" 
+                onChange={handleChange} 
+                value={state.newPaletteName} 
+                name="newPaletteName"
+                validators={["required", "isPaletteNameUnique"]}
+                errorMessages={("This field is required", "Name already exists")}
+                />
               <Button variant="contained" color="primary" type="submit">Save Palette</Button>
             </ValidatorForm>
             
@@ -176,7 +211,7 @@ export default function NewPaletteForm(props) {
           className={classes.drawer}
           variant="persistent"
           anchor="left"
-          open={open}
+          open={state.open}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -193,30 +228,32 @@ export default function NewPaletteForm(props) {
             <Button variant="contained" color="primary">Random Colour</Button>
             <Button variant="contained" color="secondary">Clear Palette</Button>
           </div>
-          <SketchPicker color={currColour} onChangeComplete={updateCurrentColour}/>
+          <SketchPicker color={state.currColour} onChangeComplete={updateCurrentColour}/>
           <ValidatorForm onSubmit={addNewColour}>
               <TextValidator 
-                value={newName}
+                value={state.newName}
                 name="newName"
                 onChange={handleChange}
                 validators={["required", "isColourNameUnique", "isColourUnique"]}
                 errorMessages={["this field is required", "Colour name already in use", "Colour already used"]}
               />
-              <Button variant="contained" color="primary" style={{backgroundColor: currColour}} type="submit">Add Colour</Button>
+              <Button variant="contained" color="primary" style={{backgroundColor: state.currColour}} type="submit">Add Colour</Button>
           </ValidatorForm>
           
          
         </Drawer>
         <main
           className={clsx(classes.content, {
-            [classes.contentShift]: open,
+            [classes.contentShift]: state.open,
           })}
         >
           <div className={classes.drawerHeader} />
-            {colours.map(colour => (
-                <DraggableColourBox colour={colour.color} name={colour.name}/>
-            ))}
-        
+            <DraggableColourList 
+              colours={state.colours} 
+              removeColour={removeColour}
+              axis="xy"
+              onSortEnd={onSortEnd}
+            />
         </main>
       </div>
     );
