@@ -11,49 +11,8 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import {Link} from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PaletteMetaForm from './PaletteMetaForm';
+import useStyles from '../styles/PaletteFormNavStyles'
 
-const drawerWidth = 400;
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex"
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: "64px",
-
-      },
-      appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-      menuButton: {
-        marginRight: theme.spacing(2),
-      },
-
-      navBtns: {
-        marginRight: "1rem",
-        display: "flex",
-        alignItems: "center",
-
-        "& a": {
-            textDecoration: "none"
-        }
-      },
-
-      btn: {
-        margin: "0 0.5rem"
-      }
-}));
 
 function PaletteFormNav(props) {
     const classes = useStyles();

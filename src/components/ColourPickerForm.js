@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -12,26 +11,7 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import DraggableColourList from './DraggableColourList'
 import { arrayMove } from 'react-sortable-hoc';
 import PaletteFormNav from './PaletteFormNav'
-
-const useStyles = makeStyles(theme => ({
-    picker: {
-        width: "95% !important",
-        marginTop: "2rem"
-    },
-
-    addColour: {
-        width: "100%",
-        padding: "1rem",
-        marginTop: "1rem",
-        fontSize: "2rem"
-    },
-
-    colourInput: {
-        width: "100%",
-        height: "70px"
-    }
-
-}));
+import useStyles from '../styles/ColourPickerFormStyles'
 
 function ColourPickerForm(props) {
     const classes = useStyles();
