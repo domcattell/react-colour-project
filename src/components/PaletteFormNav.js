@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PaletteMetaForm from './PaletteMetaForm';
 import useStyles from '../styles/PaletteFormNavStyles'
+import TuneIcon from '@material-ui/icons/Tune';
 
 
 function PaletteFormNav(props) {
@@ -50,7 +51,7 @@ function PaletteFormNav(props) {
                     onClick={props.handleDrawerOpen}
                     edge="start"
                     className={clsx(classes.menuButton, open && classes.hide)}>
-                    <MenuIcon />
+                    <TuneIcon />
                 </IconButton>
 
                 <Typography variant="h6" noWrap>

@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import drawerWidth from './constats'
+import sizes from './sizes'
+
 
 export default makeStyles(theme => ({
     root: {
@@ -28,16 +30,28 @@ export default makeStyles(theme => ({
       },
 
       navBtns: {
-        marginRight: "1rem",
+        marginRight: "2rem",
         display: "flex",
         alignItems: "center",
 
         "& a": {
             textDecoration: "none"
+        },
+
+        [sizes.down("xs")]: {
+          marginRight: "0.5rem"
         }
       },
 
       btn: {
-        margin: "0 0.5rem"
-      }
+        margin: "0 0.5rem",
+
+        [sizes.down("xs")]: {
+          margin: "0"
+        }
+      },
+
+      hide: {
+        display: 'none',
+      },
 }));

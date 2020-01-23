@@ -1,11 +1,14 @@
+import sizes from './sizes'
+
 export default {
     Palette: {
         height: "100vh",
-        overflow: "hidden"
+        // overflow: "hidden"
     },
 
     paletteColors: {
-        height: "90%"
+        height: "90%",
+        
     },
 
     goBack: {
@@ -19,6 +22,21 @@ export default {
         marginBottom: "-4px",
         opacity: "1",
         backgroundColor: "#2e4357",
+        
+        [sizes.down("lg")]: {
+            width: "25%",
+            height: "33.3333%",
+        },
+
+        [sizes.down("md")]: {
+            width: "50%",
+            height: "20%"
+        },
+
+        [sizes.down("xs")]: {
+            width: "100%",
+            height: "20%"
+        },
     },
 
     backBtn: {
@@ -40,6 +58,7 @@ export default {
         border: "none",
         opacity: "1",
         transition: "all 0.4s ease",
-        cursor: "pointer"
+        cursor: "pointer",
+
     }
 };

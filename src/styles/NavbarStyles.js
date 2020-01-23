@@ -1,3 +1,5 @@
+import sizes from './sizes'
+
 export default {
     slider: {
         width: "340px",
@@ -21,6 +23,10 @@ export default {
                 marginTop: -"3px",
                 width: "13px",
                 height: "13px"
+            },
+
+            [sizes.down("md")]: {
+                width: "150px"
             },
     },
 
@@ -47,6 +53,10 @@ export default {
             fontWeight: "400",
             fontSize: "24px"
         },
+
+        [sizes.down("xs")]: {
+            display: "none"
+        }
     },
     
     sliderLevel: {

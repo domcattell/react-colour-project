@@ -1,3 +1,5 @@
+import { red } from "@material-ui/core/colors";
+
 export default {
     root: {
         backgroundColor: "white",
@@ -7,11 +9,10 @@ export default {
         position: "relative",
         overflow: "hidden",
         transition: "all 0.4s ease",
+        cursor: "pointer",
 
-            "&:hover": {
-                cursor: "pointer",
-                backgroundColor: "#2e4357",
-                color: "#edeef2"
+            "&:hover $deleteIcon": {
+                opacity: "1"
             }
     },
 
@@ -44,5 +45,25 @@ export default {
     emoji: {
         marginLeft: "0.5rem",
         fontSize: "1.5rem"
+    },
+
+    deleteIcon: {
+        color: "white",
+        backgroundColor: "#eb3d30",
+        width: "20px",
+        height: "20px",
+        position: "absolute",
+        right: "0px",
+        top: "0px",
+        padding: "10px",
+        zIndex: "10",
+        opacity: "0",
+        fontSize: "30px",
+        transition: "all 0.5s ease",
+
+        "&:hover": {
+            backgroundColor: "darkred"
+        }
+
     }
-};
+}
