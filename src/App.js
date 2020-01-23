@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
+
 import Palette from './components/Palette';
 import PaletteList from './components/PaletteList'
 import SingleColourPalette from './components/SingleColourPalette'
-import seedColors from './seedColors';
-import {generatePalette} from './colorHelpers';
-import { Divider } from '@material-ui/core';
 import NewPaletteForm from './components/NewPaletteForm';
-import {TransitionGroup, CSSTransition} from 'react-transition-group'
-import './styles/page.css'
 import Page from './components/Page'
+
+import {generatePalette} from './colorHelpers';
+import seedColors from './seedColors';
+
+import './styles/page.css'
 
 export class App extends Component {
     constructor(props) {

@@ -25,7 +25,7 @@ export default {
                 height: "13px"
             },
 
-            [sizes.down("md")]: {
+            [sizes.down("sm")]: {
                 width: "150px"
             },
     },
@@ -34,7 +34,9 @@ export default {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        height: "6vh"
+        height: "6vh",
+
+        
     },
     
     logo: {

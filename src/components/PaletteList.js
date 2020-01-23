@@ -24,6 +24,7 @@ class PaletteList extends Component {
         this.openDialogue = this.openDialogue.bind(this);
         this.closeDialogue = this.closeDialogue.bind(this);
         this.finaliseDelete = this.finaliseDelete.bind(this);
+        this.gotToPalette = this.gotToPalette.bind(this);
     }
 
     openDialogue(id) {
@@ -57,7 +58,7 @@ class PaletteList extends Component {
                         <TransitionGroup className={classes.palettes}>
                         {palettes.map(palette => (
                              <CSSTransition key={palette.id} classNames="fade" timeout={500}>
-                                <MiniPalette openDialogue={this.openDialogue} closeDialogue={this.closeDialogue} {...palette} key={palette.id} id={palette.id} /* handleDelete={this.props.deletePalette} */ handleClick={() => this.gotToPalette(palette.id)}/>
+                                <MiniPalette openDialogue={this.openDialogue} closeDialogue={this.closeDialogue} {...palette} key={palette.id} id={palette.id} /* handleDelete={this.props.deletePalette} */ goToPalette={this.gotToPalette}/>
                              </CSSTransition>
                         ))}
                         </TransitionGroup>

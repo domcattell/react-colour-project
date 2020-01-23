@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard'
+import clsx from 'clsx';
 import chroma from 'chroma-js'
 import {Link} from 'react-router-dom'
 import styles from '../styles/ColorBoxStyles'
@@ -24,8 +25,8 @@ export class ColorBox extends Component {
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
                 <div style={{background: background}}className={classes.ColorBox}>
-                    <div style={{background: background}}className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}></div>
-                    <div className={`${classes.copyMsg} ${copied && classes.copyMsgShow}`}>
+                    <div style={{background: background}}className={clsx(classes.copyOverlay, copied && classes.showOverlay)}></div>
+                    <div className={clsx(classes.copyMsg, copied && classes.copyMsgShow)}>
                         <h1 className="">Copied!</h1>
                         <p className={classes.copyText}>{this.props.background}</p>
                     </div>
@@ -45,5 +46,6 @@ export class ColorBox extends Component {
         );
     }
 }
+
 
 export default withStyles(styles)(ColorBox);
