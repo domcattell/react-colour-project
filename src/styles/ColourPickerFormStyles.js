@@ -1,4 +1,5 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import chroma from 'chroma-js'
 
 export default makeStyles(theme => ({
     picker: {
@@ -10,7 +11,8 @@ export default makeStyles(theme => ({
         width: "100%",
         padding: "1rem",
         marginTop: "1rem",
-        fontSize: "2rem"
+        fontSize: "2rem",
+        color: "white",
     },
 
     colourInput: {

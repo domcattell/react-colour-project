@@ -5,11 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button'
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import {Link} from 'react-router-dom'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PaletteMetaForm from './PaletteMetaForm';
 import useStyles from '../styles/PaletteFormNavStyles'
 import TuneIcon from '@material-ui/icons/Tune';
@@ -31,7 +28,8 @@ function PaletteFormNav(props) {
         setState({...state, formShowing: false})
     }
 
-    const {open, handleSubmit, palettes} = props;
+    const {open, handleSubmit, palettes, handleDrawerOpen} = props;
+    const {formShowing} = state;
 
     return (
     <div className={classes.root}>
@@ -48,7 +46,7 @@ function PaletteFormNav(props) {
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={props.handleDrawerOpen}
+                    onClick={handleDrawerOpen}
                     edge="start"
                     className={clsx(classes.menuButton, open && classes.hide)}>
                     <TuneIcon />
@@ -69,10 +67,9 @@ function PaletteFormNav(props) {
             </div>
 
         </AppBar>
-        {state.formShowing && (<PaletteMetaForm hideForm={hideSaveForm} palettes={palettes} handleSubmit={handleSubmit}/>) }
+        {formShowing && (<PaletteMetaForm hideForm={hideSaveForm} palettes={palettes} handleSubmit={handleSubmit}/>) }
     </div>
     );
 }
-
 
 export default PaletteFormNav;

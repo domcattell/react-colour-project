@@ -1,16 +1,7 @@
 import React from 'react';
-import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Button from '@material-ui/core/Button'
 import {SketchPicker} from 'react-color';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
-import DraggableColourList from './DraggableColourList'
-import { arrayMove } from 'react-sortable-hoc';
-import PaletteFormNav from './PaletteFormNav'
+import Button from '@material-ui/core/Button'
 import useStyles from '../styles/ColourPickerFormStyles'
 
 function ColourPickerForm(props) {
@@ -22,6 +13,7 @@ function ColourPickerForm(props) {
     })
 
     const {paletteIsFull, addNewColour, colours} = props
+    const {currColour, newName} = state;
 
     const updateCurrentColour = (newColor) => {
         setState({...state, currColour: newColor.hex})
@@ -56,11 +48,11 @@ function ColourPickerForm(props) {
 
     return (
         <div>
-            <SketchPicker className={classes.picker} color={state.currColour} onChangeComplete={updateCurrentColour}/>
-            <ValidatorForm onSubmit={handleSubmit}>
+            <SketchPicker className={classes.picker} color={currColour} onChangeComplete={updateCurrentColour}/>
+            <ValidatorForm instantValidate={false} onSubmit={handleSubmit}>
               <TextValidator 
                 className={classes.colourInput}
-                value={state.newName}
+                value={newName}
                 variant="filled"
                 name="newName"
                 margin="normal"
@@ -69,7 +61,7 @@ function ColourPickerForm(props) {
                 validators={["required", "isColourNameUnique", "isColourUnique"]}
                 errorMessages={["this field is required", "Colour name already in use", "Colour already used"]}
               />
-            <Button className={classes.addColour} variant="contained" color="primary" style={{backgroundColor: paletteIsFull ? "lightgrey" : state.currColour}} disabled={paletteIsFull} type="submit">{paletteIsFull ? "Palette Full" : "Add Colour"}</Button>
+            <Button className={classes.addColour} variant="contained" color="primary" style={{backgroundColor: paletteIsFull ? "lightgrey" : currColour}} disabled={paletteIsFull} type="submit">{paletteIsFull ? "Palette Full" : "Add Colour"}</Button>
             </ValidatorForm>
         </div>
     );

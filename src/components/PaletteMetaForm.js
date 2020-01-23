@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -18,6 +17,7 @@ export default function PaletteMetaForm(props) {
   });
 
   const {handleSubmit, hideForm} = props;
+  const {stage, newPaletteName} = state;
 
 
   const handleChange = (e) => {
@@ -47,12 +47,12 @@ export default function PaletteMetaForm(props) {
 
   return (
     <div>
-      <Dialog onClose={hideForm} open={state.stage === "emoji"}>
+      <Dialog onClose={hideForm} open={stage === "emoji"}>
         <DialogTitle id="form-dialog-title">Enter Your Palette Name</DialogTitle>
         <Picker title="Pick Palette Emoji" emoji="point_up" darkMode={false} onSelect={savePalette} />
       </Dialog>
 
-      <Dialog open={state.stage === "form"} onClose={hideForm} aria-labelledby="form-dialog-title">
+      <Dialog open={stage === "form"} onClose={hideForm} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
         <ValidatorForm onSubmit={changeStage}>
         <DialogContent>
@@ -64,7 +64,7 @@ export default function PaletteMetaForm(props) {
                         label="Palette Name" 
                         onChange={handleChange} 
                         fullWidth
-                        value={state.newPaletteName} 
+                        value={newPaletteName} 
                         name="newPaletteName"
                         validators={["required", "isPaletteNameUnique"]}
                         errorMessages={("This field is required", "This name is taken")}/>

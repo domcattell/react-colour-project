@@ -1,20 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button'
-import {SketchPicker} from 'react-color';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import DraggableColourList from './DraggableColourList'
 import { arrayMove } from 'react-sortable-hoc';
 import PaletteFormNav from './PaletteFormNav'
 import ColourPickerForm from './ColourPickerForm';
-import {withStyles} from '@material-ui/styles';
 import useStyles from '../styles/NewPaletteFormStyles'
+import seedColors from '../seedColors'
 
 NewPaletteForm.defaultProps = {
   maxColours: 20
@@ -26,7 +23,7 @@ export default function NewPaletteForm(props) {
     const [state, setState] = React.useState({
       open: true,
       currColour: "blue",
-      colours: props.palettes[0].colors,
+      colours: seedColors[0].colors,
     })
   
     const handleDrawerOpen = () => {
@@ -81,14 +78,17 @@ export default function NewPaletteForm(props) {
 
     const paletteIsFull = state.colours.length >= props.maxColours;
 
+    const {open, colours} = state;
+    const {palettes} = props;
+
     return (
       <div className={classes.root}>
-        <PaletteFormNav open={state.open} palettes={props.palettes} handleSubmit={handleSubmit} handleDrawerOpen={handleDrawerOpen}/>
+        <PaletteFormNav open={open} palettes={palettes} handleSubmit={handleSubmit} handleDrawerOpen={handleDrawerOpen}/>
         <Drawer
           className={classes.drawer}
           variant="persistent"
           anchor="left"
-          open={state.open}
+          open={open}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -109,19 +109,19 @@ export default function NewPaletteForm(props) {
               <Button className={classes.btn} variant="contained" color="secondary" onClick={clearColours}>Clear Palette</Button>
             </div>
 
-            <ColourPickerForm paletteIsFull={paletteIsFull} addNewColour={addNewColour} colours={state.colours}/>
+            <ColourPickerForm paletteIsFull={paletteIsFull} addNewColour={addNewColour} colours={colours}/>
           </div>
 
           </Drawer>
           
         <main
           className={clsx(classes.content, {
-            [classes.contentShift]: state.open,
+            [classes.contentShift]: open,
           })}
         >
           <div className={classes.drawerHeader} />
             <DraggableColourList 
-              colours={state.colours} 
+              colours={colours} 
               removeColour={removeColour}
               axis="xy"
               onSortEnd={onSortEnd}

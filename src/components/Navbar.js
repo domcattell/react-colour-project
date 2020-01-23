@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
-import Slider, {Range} from 'rc-slider';
+import Slider from 'rc-slider';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
@@ -33,7 +33,7 @@ export class Navbar extends Component {
 
     render() {
         const {level, changeLevel, showingAllColours, classes} = this.props;
-        const {format} = this.state;
+        const {format, open} = this.state;
         return (
             <header className={classes.Navbar}>
                 <div className={classes.logo}>
@@ -56,7 +56,7 @@ export class Navbar extends Component {
                 </div>
                 <Snackbar 
                     anchorOrigin={{vertical: "bottom", horizontal: "left"}} 
-                    open={this.state.open}
+                    open={open}
                     autoHideDuration={3000}
                     message={<span id="msg-id">Format changed to {format.toUpperCase()}</span>}
                     ContentProps={{"aria-describedby": "msg-id"}}
