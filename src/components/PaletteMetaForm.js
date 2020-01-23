@@ -34,6 +34,7 @@ export default function PaletteMetaForm(props) {
       emoji: emoji.native
     }
     handleSubmit(newPalette)
+    setState({...state, stage: ""})
   }
 
   React.useEffect(() => {

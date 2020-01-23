@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.page {
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
