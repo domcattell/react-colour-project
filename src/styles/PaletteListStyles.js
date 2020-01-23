@@ -40,14 +40,14 @@ export default {
 
     nav: {
         display: "flex",
-        width: "100%",
+        width: "95%",
         justifyContent: "space-between",
         color: "white",
         alignItems: "center",
         
             "& a": {
                 textDecoration: "none",
-                color: "white",
+                color: "black",
     }       },
 
     palettes: {

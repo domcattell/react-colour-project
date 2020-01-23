@@ -7,6 +7,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import Dialog from '@material-ui/core/Dialog';
 import List from "@material-ui/core/List"
 import ListItem from '@material-ui/core/ListItem'
+import Button from '@material-ui/core/Button'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
@@ -53,7 +54,10 @@ class PaletteList extends Component {
                 <div className={classes.container}>
                     <nav className={classes.nav}>
                         <h1>React Colours</h1>
-                        <Link to="/palette/new">Create Palette</Link>
+                        <Button variant="contained">
+                            <Link to="/palette/new">Create Palette</Link>
+                        </Button>
+                        <Button variant="contained" onClick={this.props.reset}>Reset</Button>
                     </nav>
                    
                         <TransitionGroup className={classes.palettes}>
