@@ -8,7 +8,7 @@ function MiniPalette(props) {
 
     const deletePalette = (e) => {
         e.stopPropagation();
-        props.handleDelete(props.id)
+        props.openDialogue(props.id)
     }
 
     return(

@@ -125,6 +125,7 @@ export default function NewPaletteForm(props) {
               removeColour={removeColour}
               axis="xy"
               onSortEnd={onSortEnd}
+              distance={20}
             />
         </main>
       </div>
